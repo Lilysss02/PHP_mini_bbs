@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // $_POSTが空ではない時
 if (!empty($_POST)) {
 	// ブランクだった場合に各フォームの下にエラーメッセージ
@@ -14,10 +16,17 @@ if (!empty($_POST)) {
 	if ($_POST['password'] === '') {
 		$error['password'] = 'blank';
 	}
+
 	if (empty($error)) {
+		// セッションに値を保存
+		$_SESSION['join'] = $_POST;
 		header('Location: check.php');
 		exit();
 	}
+}
+
+if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
+	$_POST = $_SESSION['join'];
 }
 ?>
 <!DOCTYPE html>
