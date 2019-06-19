@@ -90,9 +90,14 @@ if (isset($_REQUEST['res'])) {
       [<a href="index.php?res=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)); ?>">Re</a>]
     </p>
     <!-- 投稿日時の表示 -->
-    <p class="day"><a href="view.php?id="><?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
-      <a href="view.php?id=">
-      返信元のメッセージ</a>
+    <p class="day"><a href="view.php?id=<?php print(htmlspecialchars($post['id'])); ?>">
+      <?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
+      
+      <!-- 返信元がある場合のみ表示する -->
+      <?php if ($post['reply_message_id'] > 0): ?>
+        <a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'], ENT_QUOTES)); ?>">
+          返信元のメッセージ</a>
+      <?php endif; ?>
       [<a href="delete.php?id="
       style="color: #F33;">削除</a>]
     </p>
